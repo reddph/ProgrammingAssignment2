@@ -8,8 +8,9 @@
 ## calls for inverse matrix computation return a cached data for 
 ## the inverse if the cache detects that candidate matrix has not 
 ## changed without attempting to recompute the inverse. The cache matrix
-## object can retain matrix inverse instances for varied and multiple
-## matrix instances.
+## object can retain matrix inverse instances for multiple distinct
+## matrix instances. Each cacheMatrix instance encapsulates the
+## its own inverse matrix data.
 ##
 ## Asumption: The candidate matrix is invertible
 ## 
@@ -28,15 +29,14 @@ makeCacheMatrix <- function(x = matrix()) {
                 x <<- y
                 invMat <<- NULL
         }
-        get <- function() x
-        setInverse <- function(z) invMat <<- z
-        getInverse <- function() invMat
+        get <- function() {x}
+        setInverse <- function(z) {invMat <<- z}
+        getInverse <- function() {invMat}
         list(set = set, get = get,
              setInverse = setInverse,
              getInverse = getInverse)
 
 }
-
 
 ## The cacheSolve function provides the actual caching mechanism. The internal
 ## variable invMat is shared between the two functions for managing the cache
@@ -52,11 +52,11 @@ cacheSolve <- function(x, ...) {
 
         invMat <- x$getInverse()
         if(!is.null(invMat)) {
-                message("getting cached data")
+                message("returning cached inverse data")
                 return(invMat)
         }
         data <- x$get()
-        invMat <- solve(data)
+        invMat <- solve(data, ...)
         x$setInverse(invMat)
         invMat
 }
