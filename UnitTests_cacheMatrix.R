@@ -6,7 +6,10 @@ source("cacheMatrix.R")
 # Courtesy to the following web publication to create large invertible matrix for testing the assignment code:
 # Ref: https://matthewhr.wordpress.com/2013/09/01/how-to-construct-an-invertible-matrix-just-choose-large-diagonals/
 
-# Test case 1: matrix[10,10]
+# Test case 1: Use cacheMatrix.R functions to perform inverse of matrix[10,10]
+# Test case 2: Use cacheMatrix.R functions to perform inverse of matrix[100,100]
+# Test case 2: Use cacheMatrix.R functions to perform inverse of matrix[25,25]
+
 mat1 <- matrix(rep(1,100),nrow=10,ncol=10)
 for (i in 1:10) {
         for (j in 1:10) {
